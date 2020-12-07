@@ -7,7 +7,10 @@ services:
     depends_on:
       - elasticsearch
     ports:
-      - "192.168.10.4:5140:5140"
+      - "192.168.10.4:5140:5140/udp"
+      - "192.168.10.4:5140:5140/tcp"
+    networks:
+      - elk
 
   elasticsearch:
     image: elasticsearch:5.5-alpine
@@ -22,11 +25,10 @@ services:
         hard: -1
     ports:
       - "9200:9200"
+      - "9300:9300"
+    networks:
+      - elk
 
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.10.0
-    ports:
-      - "5601:5601"
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
-      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+networks:
+  elk:
+    driver: bridge
