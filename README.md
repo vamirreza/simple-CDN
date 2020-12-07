@@ -1,4 +1,4 @@
-# simple-CD
+# simple-CDN
 Simple CDN configured by Linux, Vagrant, Bird, Bash, Nginx, ELK stack
 
 ## setup environment 
