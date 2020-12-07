@@ -1,0 +1,1 @@
+0 0 * * * curl -XDELETE http://localhost:9200/logstash-`date -d'7 days ago' +'%Y.%m.%d'`

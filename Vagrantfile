@@ -21,6 +21,7 @@ Vagrant.configure("2") do |config|
     logger.vm.synced_folder "./elk/", "/srv/elk"
     logger.vm.provision "shell", path: "scripts/docker.sh"
     logger.vm.provision "shell", inline: <<-SHELL
+      sudo crontab /srv/elk/croncleanup
       sudo sysctl -w vm.max_map_count=262144
       cd /srv/elk && docker-compose build && docker-compose up -d
     SHELL
@@ -62,6 +63,7 @@ Vagrant.configure("2") do |config|
     client.vm.provision "shell", inline: <<-SHELL
       sudo route delete default gw 10.0.2.2
       sudo route add default gw 172.20.0.10
+      echo "10.0.10.10  blog.digikala.com" >> /etc/hosts
     SHELL
   end
 
