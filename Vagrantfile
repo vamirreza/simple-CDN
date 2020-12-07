@@ -62,7 +62,9 @@ Vagrant.configure("2") do |config|
     client.vm.box = "hashicorp/bionic64"
     client.vm.hostname = "client"
     client.vm.network "private_network", ip: "172.20.0.20", virtualbox__intnet: "front"
+    edge.vm.synced_folder "./client", "/home/vagrant"
     client.vm.provision "shell", inline: <<-SHELL
+      sudo chmod +x /home/vagrant/load.sh
       sudo route delete default gw 10.0.2.2
       sudo route add default gw 172.20.0.10
       echo "10.0.10.10  blog.digikala.com" >> /etc/hosts

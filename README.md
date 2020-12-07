@@ -13,6 +13,8 @@ Simple CDN configured by Linux, Vagrant, Bird, Bash, Nginx, ELK stack
 │   ├── docker-compose.yml
 │   └── nginx-conf
 │       └── nginx.conf
+├── client
+│   └── load.sh
 ├── edge
 │   ├── nginx
 │   │   └── blog.digikala.com.conf
@@ -82,4 +84,11 @@ For sending and testing web content.
 ```command
 curl -v http://blog.digikala.com
 ```
+generate loads on webserver:
+
+```command
+./load.sh <num calls> http://blog.digikala.com
+```
+
+
 
