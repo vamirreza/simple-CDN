@@ -33,9 +33,11 @@ Vagrant.configure("2") do |config|
     edge.vm.network "private_network", ip: "192.168.10.3", virtualbox__intnet: "back"
     edge.vm.network "private_network", ip: "10.0.10.10", virtualbox__intnet: "bgp"
     edge.vm.synced_folder "./bgp.conf/edge", "/etc/bird", owner: "root", group: "root"
-    edge.vm.synced_folder "./nginx", "/etc/nginx/conf.d", owner: "root", group: "root"
+    edge.vm.synced_folder "./edge/nginx", "/etc/nginx/conf.d", owner: "root", group: "root"
+    edge.vm.synced_folder "./edge/purge", "/home/vagrant"
     edge.vm.provision "shell", path: "scripts/bird.sh"
     edge.vm.provision "shell", inline: <<-SHELL
+      sudo chmod +x /home/vagrant/purge.sh 
       sudo apt update
       sudo apt install nginx -y
       sudo mkdir /var/cache/nginx
