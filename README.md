@@ -11,11 +11,11 @@ vagrant up
 
 This command start five machines:
 
-⋅⋅* webserver
-⋅⋅* logger
-⋅⋅* edge
-⋅⋅* isp
-⋅⋅* client 
+* webserver
+* logger
+* edge
+* isp
+* client 
 
 ### webserver
 
