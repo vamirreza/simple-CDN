@@ -1,6 +1,39 @@
 # simple-CDN
 Simple CDN configured by Linux, Vagrant, Bird, Bash, Nginx, ELK stack
 
+```bash
+.
+├── Vagrantfile
+├── bgp.conf
+│   ├── edge
+│   │   └── bird.conf
+│   └── isp
+│       └── bird.conf
+├── blog
+│   ├── docker-compose.yml
+│   └── nginx-conf
+│       └── nginx.conf
+├── edge
+│   ├── nginx
+│   │   └── blog.digikala.com.conf
+│   └── purge
+│       └── purge.sh
+├── elk
+│   ├── croncleanup
+│   ├── docker-compose.yml
+│   └── logstash
+│       ├── Dockerfile
+│       └── conf
+│           ├── es_template.json
+│           ├── logstash.conf
+│           └── patterns
+│               ├── nginx_access
+│               └── nginx_error
+└── scripts
+    ├── bird.sh
+    └── docker.sh
+```
+
 ## setup environment 
 
 Make ready all VMs:
@@ -49,9 +82,4 @@ For sending and testing web content.
 ```command
 curl -v http://blog.digikala.com
 ```
-
-
-
-
-
 
