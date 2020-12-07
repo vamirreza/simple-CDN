@@ -4,22 +4,27 @@ Vagrant.configure("2") do |config|
     webserver.vm.box = "hashicorp/bionic64"
     webserver.vm.hostname = "webserver"
     webserver.vm.network "private_network", ip: "192.168.10.2", virtualbox__intnet: "back"
-    webserver.vm.synced_folder "./blog/", "/srv/website"
+    webserver.vm.network "forwarded_port", guest: 80, host: 8080
+    webserver.vm.synced_folder "./blog/", "/srv/blog"
     webserver.vm.provision "shell", path: "scripts/docker.sh"
     webserver.vm.provision "shell", inline: <<-SHELL
-      cd /srv/website && docker-compose up -d 
+      cd /srv/blog && docker-compose up -d 
     SHELL
   end
 
   config.vm.define "logger" do |logger|
+    logger.vm.provider "virtualbox" do |v|
+      v.memory = 4096
+    end
     logger.vm.box = "hashicorp/bionic64"
     logger.vm.hostname = "webserver"
     logger.vm.network "private_network", ip: "192.168.10.4", virtualbox__intnet: "back"
-    #logger.vm.synced_folder "./blog/", "/srv/website"
+    logger.vm.synced_folder "./elk/", "/srv/elk"
     logger.vm.provision "shell", path: "scripts/docker.sh"
-    #logger.vm.provision "shell", inline: <<-SHELL
-    #  cd /srv/website && docker-compose up -d
-    #SHELL
+    logger.vm.provision "shell", inline: <<-SHELL
+      sudo sysctl -w vm.max_map_count=262144
+      cd /srv/elk && docker-compose build && docker-compose up -d
+    SHELL
   end
 
   config.vm.define "edge" do |edge|

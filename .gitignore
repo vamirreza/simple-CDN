@@ -1,2 +1,8 @@
 .DS_store
 .vagrant
+bgp.conf/edge/bird.conf.ucf-dist
+bgp.conf/edge/bird6.conf
+bgp.conf/edge/envvars
+bgp.conf/isp/bird.conf.ucf-dist
+bgp.conf/isp/bird6.conf
+bgp.conf/isp/envvars
